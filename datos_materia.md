@@ -25,3 +25,10 @@ Implementar un sistema orientado a objetos y documentacion UML acorde
 * Diagrama de Clases
 * Diagrama de Actividades
 * Diagrama de Secuencia
+
+# Grupo TP
+
+* David Litvak - david.litvakb@gmail.com
+* Hugo Barrera - hugo@barrera.io
+* Walter Morales - morales.walterd@gmail.com
+* Matias Novillo Caceres - matiasnovillocaceres@gmail.com
