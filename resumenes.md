@@ -12,3 +12,7 @@
 * Requisitos no funcionales
 * Repaso Casos de Uso
 * Demostracion Enterprise Architect
+
+# Clase 3
+
+* Diagrama de Clases

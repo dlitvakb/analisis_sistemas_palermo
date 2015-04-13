@@ -32,3 +32,4 @@ Implementar un sistema orientado a objetos y documentacion UML acorde
 * Hugo Barrera - hugo@barrera.io
 * Walter Morales - morales.walterd@gmail.com
 * Matias Novillo Caceres - matiasnovillocaceres@gmail.com
+* Horacio Aguirre - aguirrebernardi@gmail.com
