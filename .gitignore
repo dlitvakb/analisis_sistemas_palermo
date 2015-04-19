@@ -1,5 +1,6 @@
 *.pyc
 *.sw?
 __pycache__
-
+*.sqlite
+*.sqlite3
 *.dia~
