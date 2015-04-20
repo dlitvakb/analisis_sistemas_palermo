@@ -1,2 +1,5 @@
 bootstrap-admin==0.3.5
 Django==1.8
+django-extensions==1.5.2
+pygraphviz==1.2
+six==1.9.0
