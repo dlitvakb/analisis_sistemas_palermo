@@ -16,3 +16,7 @@
 # Clase 3
 
 * Diagrama de Clases
+
+# Clase 7
+
+* Diagrama de Secuncia
