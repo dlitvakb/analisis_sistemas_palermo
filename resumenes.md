@@ -19,4 +19,8 @@
 
 # Clase 7
 
-* Diagrama de Secuncia
+* Diagrama de Secuencia
+
+# Clase 8
+
+* Diagrama de Actividades
