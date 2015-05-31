@@ -24,6 +24,10 @@ SECRET_KEY = '(2=&ownv*vb2dzk1nog34($jpdu&k-s$ftd&p6c0x+)&@y5ur*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+TASTYPIE_FULL_DEBUG = True
+
+APPEND_SLASH = False
+TASTYPIE_ALLOW_MISSING_SLASH = True
 
 ALLOWED_HOSTS = []
 
@@ -33,6 +37,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = (
     'django_extensions',
     'bootstrap_admin',
+    'tastypie',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -111,3 +116,49 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
+    'handlers': {
+        'null': {
+            'level': 'DEBUG',
+            'class': 'logging.NullHandler',
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'propagate': True,
+            'level': 'INFO',
+        },
+        'django.request': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'django.security.DisallowedHost': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        'django.db.backends': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': False,
+        }
+    }
+}
