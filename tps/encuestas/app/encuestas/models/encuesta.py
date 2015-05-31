@@ -22,6 +22,7 @@ class Encuesta(models.Model):
             export["grupos"].append(grupo.exportar())
 
         export["respuestas_totales"] = self.respuestas.count()
+        export["cantidad_visitas"] = self.links.filter(visitado=True).count()
 
         return export
 
