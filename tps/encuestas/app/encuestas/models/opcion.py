@@ -10,6 +10,8 @@ class Opcion(models.Model):
         export["opcion"] = self.opcion
         export["cantidad"] = self.respuestas.count()
 
+        return export
+
     def __unicode__(self):
         return "%s: %s - %s - %d: %s" % (
             self.pregunta.grupo.encuesta.nombre,

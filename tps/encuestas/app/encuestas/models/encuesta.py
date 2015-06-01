@@ -10,8 +10,8 @@ class Encuesta(models.Model):
     fecha_expiracion = models.DateTimeField(null=True)
 
     def exportar(self):
-        if not self._is_finalized():
-            raise Exception("La Encuesta no esta finalizada")
+        #if not self._is_finalized():
+            #raise Exception("La Encuesta no esta finalizada")
 
         export = {}
         export["nombre"] = self.nombre

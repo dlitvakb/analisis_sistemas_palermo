@@ -9,7 +9,10 @@ def exportar_encuesta(request, id_encuesta):
     except:
         return HttpResponseNotFound()
 
-    export = json.dumps(encuesta.exportar())
+    try:
+        export = json.dumps(encuesta.exportar())
+    except:
+        return HttpResponse("Encuesta no finalizada", status=403)
 
     response = HttpResponse(content_type='application/json')
     response['Content-Disposition'] = 'attachment; filename="%s.json"' % (encuesta.nombre,)

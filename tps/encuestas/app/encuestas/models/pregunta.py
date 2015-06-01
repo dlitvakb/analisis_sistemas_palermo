@@ -9,9 +9,11 @@ class Pregunta(models.Model):
         export = {}
         export["pregunta"] = self.pregunta
 
-        export["opciones"] = self.opciones
+        export["opciones"] = []
         for opcion in self.opciones.all():
             export["opciones"].append(opcion.exportar())
+
+        return export
 
     def __unicode__(self):
         return "%s: %s - %d: %s" % (

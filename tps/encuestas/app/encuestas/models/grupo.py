@@ -13,6 +13,8 @@ class Grupo(models.Model):
         for pregunta in self.preguntas.all():
             export["preguntas"].append(pregunta.exportar())
 
+        return export
+
     def __unicode__(self):
         return "Encuesta %d: %s - %s" % (
             self.encuesta.id,
