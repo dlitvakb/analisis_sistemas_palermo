@@ -10,7 +10,7 @@ def exportar_encuesta(request, id_encuesta):
         return HttpResponseNotFound()
 
     try:
-        export = json.dumps(encuesta.exportar())
+        export = json.dumps(encuesta.exportar(), sort_keys=True, indent=2, separators=(',', ': '))
     except:
         return HttpResponse("Encuesta no finalizada", status=403)
 

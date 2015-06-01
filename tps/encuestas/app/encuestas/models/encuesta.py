@@ -10,12 +10,10 @@ class Encuesta(models.Model):
     fecha_expiracion = models.DateTimeField(null=True)
 
     def exportar(self):
-        #if not self._is_finalized():
-            #raise Exception("La Encuesta no esta finalizada")
-
         export = {}
         export["nombre"] = self.nombre
         export["descripcion"] = self.descripcion
+        export["finalizada"] = self._is_finalized()
 
         export["grupos"] = []
         for grupo in self.grupos.all():

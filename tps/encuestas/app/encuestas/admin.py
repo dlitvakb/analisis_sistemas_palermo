@@ -59,7 +59,7 @@ class EncuestaAdmin(admin.ModelAdmin):
 
         response = HttpResponse(content_type='application/json')
         response['Content-Disposition'] = 'attachment; filename="%s.json"' % ("Export Encuestas",)
-        response.write(json.dumps(export))
+        response.write(json.dumps(export, sort_keys=True, indent=2, separators=(',', ': ')))
 
         return response
 
