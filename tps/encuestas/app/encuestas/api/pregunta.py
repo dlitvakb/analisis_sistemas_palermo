@@ -1,4 +1,5 @@
 from tastypie import fields
+from tastypie.authentication import BasicAuthentication
 from tastypie.authorization import Authorization
 from tastypie.resources import ModelResource
 from encuestas.helpers.pretty_serializer import PrettySerializer
@@ -13,6 +14,7 @@ class PreguntaResource(ModelResource):
     class Meta:
         queryset = Pregunta.objects.all()
         resource_name = 'pregunta'
+        authentication = BasicAuthentication()
         authorization = Authorization()
         serializer = PrettySerializer()
 

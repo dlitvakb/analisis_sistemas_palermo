@@ -9,7 +9,7 @@ class User(models.Model):
         subject = "Encuesta: %s" % (nombre_encuesta,)
         message = "Haga click en el siguiente link: %s%s" % (
             "http://localhost:8000/responder?ref=",
-            link.id
+            link.id.int
         )
         from_mail = "kroma.harry@gmail.com"
         to_mail = [self.mail]

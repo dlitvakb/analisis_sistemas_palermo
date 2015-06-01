@@ -1,3 +1,4 @@
+from tastypie.authentication import BasicAuthentication
 from tastypie.authorization import Authorization
 from tastypie.resources import ModelResource
 from encuestas.helpers.pretty_serializer import PrettySerializer
@@ -8,6 +9,7 @@ class OpcionResource(ModelResource):
     class Meta:
         queryset = Opcion.objects.all()
         resource_name = 'opcion'
+        authentication = BasicAuthentication()
         authorization = Authorization()
         serializer = PrettySerializer()
 
