@@ -64,6 +64,8 @@ class EncuestaAdmin(admin.ModelAdmin):
         return response
 
 
+class RespuestaAdmin(admin.ModelAdmin):
+    readonly_fields = ['encuesta']
 
 
 # Register your models here.
@@ -75,4 +77,4 @@ admin.site.register(link.Link)
 
 admin.site.register(user.User)
 
-admin.site.register(respuesta.Respuesta)
+admin.site.register(respuesta.Respuesta, RespuestaAdmin)
