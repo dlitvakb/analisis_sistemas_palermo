@@ -16,6 +16,9 @@ def responder_encuesta(request):
     except:
         return HttpResponseNotFound()
 
+    if link.visitado:
+        return HttpResponseNotFound()
+
     link.visitado = True
     link.save()
 
