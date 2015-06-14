@@ -31,6 +31,7 @@ crear_grupo = (jsEvent) =>
           "<thead>" +
             "<tr>" +
               "<th width='80%'>Pregunta</th>" +
+              "<th>Opciones</th>" +
               "<th>Acciones</th>" +
             "</tr></thead><tbody></tbody>"
     ).appendTo('div.grupos')

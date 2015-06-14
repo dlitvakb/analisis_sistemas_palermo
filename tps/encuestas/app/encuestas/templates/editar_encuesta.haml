@@ -68,7 +68,10 @@
             %label.control-label{'for':'usuarios'} Seleccione Usuarios
             %select.form-control.usuarios{'multiple':'multiple'}
               - for user in users
-                %option{'value':"={ user.id }"}= user.mail
+                - if user in encuesta.usuarios.all
+                  %option{'selected':'selected', 'value':"={ user.id }"}= user.mail
+                - else
+                  %option{'value':"={ user.id }"}= user.mail
 
       %hr
       .row
