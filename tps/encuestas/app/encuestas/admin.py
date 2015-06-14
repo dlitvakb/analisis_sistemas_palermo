@@ -51,7 +51,6 @@ class EncuestaAdmin(admin.ModelAdmin):
                 export["%d - %s" % (encuesta.id, encuesta.nombre)] = \
                         encuesta.exportar()
             except Exception, e:
-                import ipdb; ipdb.set_trace()
                 continue
 
         export["cantidad_encuestas"] = encuestas.count()

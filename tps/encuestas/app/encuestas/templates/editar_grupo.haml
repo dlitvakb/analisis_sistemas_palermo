@@ -1,0 +1,17 @@
+%br
+%table.table.table-striped.table-bordered
+  %button.btn.btn-primary.btn-sm.pull-right.agregar-pregunta{'type':"button", 'data-toggle':'modal', 'data-target':'#crearPregunta', 'data-grupo-id':"={index}"} Agregar Pregunta
+  %input.grupo-id{'type':'hidden', 'value':"={grupo.pk}"}
+  %input.grupo-nombre{'type':'hidden', 'value':"={grupo.nombre}"}
+  %thead
+    %tr
+      %th{'width':'80%'} Pregunta
+      %th{'colspan':2} Acciones
+  %tbody
+    - for pregunta in grupo.preguntas.all
+      %tr
+        %td{'width':'80%'}= pregunta.pregunta
+        %td
+          %a{'href':'#'} Editar
+        %td
+          %a{'href':'#'} Eliminar

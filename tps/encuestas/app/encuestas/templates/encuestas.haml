@@ -1,0 +1,41 @@
+- extends "layout.haml"
+- block title
+  Encuestas
+- block content
+  %h1 Encuestas
+
+  %hr
+  .row
+    %a.btn.btn-primary.pull-right{'href':'/encuestas/new/'} Agregar Encuesta
+  %br
+  .row
+    .col-md-12.col-sm-12
+      %table.table.table-striped.table-bordered
+        %thead
+          %tr
+            %th Nombre Encuesta
+            %th Cantidad de Visitas
+            %th Cantidad de Respuestas
+            %th Fecha Limite
+            %th Finalizada
+            %th{'colspan':3} Acciones
+        %tbody
+          - for encuesta in encuestas
+            %tr
+              %td
+                %a{'href':"/encuesta/={encuesta.id}/"}= encuesta.nombre
+              %td= encuesta.cantidad_visitas
+              %td= encuesta.cantidad_respuestas
+              %td= encuesta.fecha_expiracion
+              %td
+                - if encuesta.is_finalized
+                  Si
+                - else
+                  No
+              %td
+                %a{'href':"/encuesta/={encuesta.id}/"} Editar
+              %td
+                %a{'href':"/exportar/={encuesta.id}/"} Exportar
+              %td
+                %a.eliminar-encuesta{'href':"#", 'data-url':"/encuesta/={encuesta.id}/delete/"} Eliminar
+

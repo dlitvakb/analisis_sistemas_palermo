@@ -13,6 +13,7 @@ class EncuestaResource(ModelResource):
     creador = fields.ForeignKey('encuestas.api.user.UserResource', 'creador')
 
     class Meta:
+        always_return_data = True
         queryset = Encuesta.objects.all()
         resource_name = 'encuesta'
         authentication = BasicAuthentication()

@@ -9,6 +9,18 @@ class Encuesta(models.Model):
     descripcion = models.TextField(default="")
     fecha_expiracion = models.DateTimeField(null=True)
 
+    @property
+    def is_finalized(self):
+        return all([ link.visitado for link in self.links.all() ]) or self._is_expired()
+
+    @property
+    def cantidad_visitas(self):
+        return self.links.filter(visitado=True).count()
+
+    @property
+    def cantidad_respuestas(self):
+        return self.links.filter(finalizada=True).count()
+
     def exportar(self):
         export = {}
         export["nombre"] = self.nombre
@@ -19,8 +31,8 @@ class Encuesta(models.Model):
         for grupo in self.grupos.all():
             export["grupos"].append(grupo.exportar())
 
-        export["respuestas_totales"] = self.respuestas.count()
-        export["cantidad_visitas"] = self.links.filter(visitado=True).count()
+        export["respuestas_totales"] = self.cantidad_respuestas
+        export["cantidad_visitas"] = self.cantidad_visitas
 
         return export
 
@@ -39,11 +51,8 @@ class Encuesta(models.Model):
             return self.fecha_expiracion < datetime.now()
         return False
 
-    def _is_finalized(self):
-        return all([ link.visitado for link in self.links.all() ]) or self._is_expired()
-
     def _finalizada(self):
-        if self._is_finalized():
+        if self.is_finalized:
             return "(Finalizada) "
         return ""
 

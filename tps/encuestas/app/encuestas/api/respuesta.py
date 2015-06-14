@@ -7,6 +7,7 @@ from encuestas.models.respuesta import Respuesta
 
 class RespuestaResource(ModelResource):
     class Meta:
+        always_return_data = True
         queryset = Respuesta.objects.all()
         resource_name = 'respuesta'
         authorization = Authorization()

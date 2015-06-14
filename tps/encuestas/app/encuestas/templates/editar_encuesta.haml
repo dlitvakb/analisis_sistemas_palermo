@@ -1,0 +1,103 @@
+- extends "layout.haml"
+- block title
+  - if encuesta.pk
+    Editando - ={ encuesta.nombre }
+  - else
+    Nueva Encuesta
+- block content
+  - if encuesta.pk
+    %h1 Editando - ={ encuesta.nombre }
+  - else
+    %h1 Nueva Encuesta
+
+  .modal{'id':'crearUsuario', 'tabindex':'-1', 'role':'dialog', 'aria-labelledby':"crearUsuarioLabel", 'aria-hidden':"true"}
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %button.close{'type':"button", 'data-dismiss':"modal", 'aria-label':"Close"}
+            %span{'aria-hidden':"true"} &times;
+          %h4.modal-title{'id':'crearUsuarioLabel'} Crear Usuario
+        .modal-body
+          %form
+            .form-group
+              %label.control-label{'for':'userMail'} Mail
+              %input.form-control{'id':'userMail', 'type':'text', 'placeholder':'Mail del Usuario'}
+        .modal-footer
+          %button.btn.btn-default.pull-left{'data-dismiss':'modal'} Cancelar
+          %button.crear-usuario.btn.btn-primary.pull-right Guardar
+
+  .modal{'id':'crearGrupo', 'tabindex':'-1', 'role':'dialog', 'aria-labelledby':"crearGrupoLabel", 'aria-hidden':"true"}
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %button.close{'type':"button", 'data-dismiss':"modal", 'aria-label':"Close"}
+            %span{'aria-hidden':"true"} &times;
+          %h4.modal-title{'id':'crearGrupoLabel'} Crear Grupo
+        .modal-body
+          %form
+            .form-group
+              %label.control-label{'for':'nombreGrupo'} Nombre
+              %input.form-control{'id':'nombreGrupo', 'type':'text', 'placeholder':'Nombre del Grupo'}
+        .modal-footer
+          %button.btn.btn-default.pull-left{'data-dismiss':'modal'} Cancelar
+          %button.crear-grupo.btn.btn-primary.pull-right Guardar
+
+  %hr
+  .row
+    %form
+      .row
+        .col-md-8
+          %input.id-encuesta{'type':'hidden', 'value':"={ encuesta.pk }"}
+
+          .form-group
+            %label.control-label{'for':'nombre'} Nombre
+            %input.form-control{'type':'text', 'placeholder':'Nombre de Encuesta', 'value':"={ encuesta.nombre }"}
+
+          .form-group
+            %label.control-label{'for':'nombre'} Fecha Límite
+            %input.form-control{'type':'date', 'value':'{{ encuesta.fecha_expiracion.date|date:"Y-m-d" }}'}
+
+          .form-group
+            %label.control-label{'for':'nombre'} Descripcion
+            %textarea.form-control{'rows':'3', 'placeholder':'Descripcion'}= encuesta.descripcion
+        .col-md-4
+          %h4 Usuarios
+          %button.btn.btn-primary.pull-right.agregar-usuario{'type':"button", 'data-toggle':'modal', 'data-target':'#crearUsuario'} Agregar Usuario
+          %br
+          .form-group
+            %label.control-label{'for':'usuarios'} Seleccione Usuarios
+            %select.form-control.usuarios{'multiple':'multiple'}
+              - for user in users
+                %option{'value':"={ user.id }"}= user.mail
+
+      %hr
+      .row
+        %h4 Grupos
+        %button.btn.btn-primary.pull-right.agregar-grupo{'type':"button", 'data-toggle':'modal', 'data-target':'#crearGrupo'} Agregar Grupo
+        .row
+          - with grupos=encuesta.grupos.all
+            %ul.nav.nav-tabs.grupos{'role':'tablist'}
+              - for grupo in grupos
+                - if forloop.first
+                  %li.active{'role':'presentation'}
+                    %a{'href':"#grupo_={ forloop.counter }", 'role':'tab', 'data-toggle':'tab', 'aria-controls':"grupo_={ forloop.counter }"}= grupo.nombre
+                - else
+                  %li{'role':'presentation'}
+                    %a{'href':"#grupo_={ forloop.counter }", 'role':'tab', 'data-toggle':'tab', 'aria-controls':"grupo_={ forloop.counter }"}= grupo.nombre
+
+            .tab-content.grupos
+              - for grupo in grupos
+                - if forloop.first
+                  .tab-pane.active{'id':"grupo_={ forloop.counter }"}
+                    {% include "editar_grupo.haml" with grupo=grupo index=forloop.counter %}
+                - else
+                  .tab-pane{'id':"grupo_={ forloop.counter }"}
+                    {% include "editar_grupo.haml" with grupo=grupo index=forloop.counter %}
+
+  %hr
+  .row
+    %a.btn.btn-default.pull-left{'href':"/encuestas"} Cancelar
+    %a.btn.btn-primary.pull-right{'href':"#"} Enviar
+    %a.btn.btn-warning.pull-right{'href':"#"} Vista Previa
+    %a.btn.btn-info.pull-right{'href':"#"} Guardar
+

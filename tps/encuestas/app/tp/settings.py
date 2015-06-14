@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django_extensions',
     'bootstrap_admin',
     'tastypie',
+    'static_precompiler',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -63,8 +64,9 @@ ROOT_URLCONF = 'tp.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
+        'DIRS': [
+            os.path.join(BASE_DIR, 'encuestas', 'templates')
+        ],
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -72,6 +74,10 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'loaders': [
+                'djaml.loaders.DjamlFilesystemLoader',
+                'djaml.loaders.DjamlAppDirectoriesLoader'
+            ]
         },
     },
 ]
@@ -116,6 +122,19 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'encuestas', 'static')
+
+STATIC_FILE_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'static_precompiler.finders.StaticPrecompilerFinder',
+]
+
+STATIC_PRECOMPILER_COMPILERS = (
+    ('static_precompiler.compilers.CoffeeScript', {"executable": "/usr/local/bin/coffee"}),
+    ('static_precompiler.compilers.SCSS', {"executable": "/usr/local/bin/sassc"}),
+)
 
 LOGGING = {
     'version': 1,

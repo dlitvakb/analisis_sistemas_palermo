@@ -7,6 +7,7 @@ from encuestas.models.link import Link
 
 class LinkResource(ModelResource):
     class Meta:
+        always_return_data = True
         queryset = Link.objects.all()
         resource_name = 'link'
         authentication = BasicAuthentication()

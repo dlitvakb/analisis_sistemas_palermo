@@ -10,9 +10,11 @@ from encuestas.api.pregunta import PreguntaResource
 
 
 class GrupoResource(ModelResource):
-    preguntas = fields.ToManyField(PreguntaResource, 'preguntas', related_name='grupo')
+    encuesta = fields.ToOneField('encuestas.api.encuesta.EncuestaResource', 'encuesta')
+    preguntas = fields.ToManyField(PreguntaResource, 'preguntas', related_name='grupo', null=True)
 
     class Meta:
+        always_return_data = True
         queryset = Grupo.objects.all()
         resource_name = 'grupo'
         authentication = BasicAuthentication()

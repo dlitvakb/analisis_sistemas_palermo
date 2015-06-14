@@ -7,10 +7,11 @@ from encuestas.models.user import User
 
 class UserResource(ModelResource):
     class Meta:
+        always_return_data = True
         queryset = User.objects.all()
         resource_name = 'user'
         authentication = BasicAuthentication()
         authorization = Authorization()
         serializer = PrettySerializer()
-        fields = ["mail"]
+        fields = ["id","mail"]
 
