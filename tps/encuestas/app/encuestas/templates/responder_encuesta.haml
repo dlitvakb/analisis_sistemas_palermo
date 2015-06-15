@@ -10,4 +10,4 @@
   {% include "render_encuesta" with encuesta=encuesta %}
 
   %hr
-  %button.btn.btn-default.pull-right.volver{'type':'button', 'data-encuesta-id':'={ encuesta.id }', 'data-link-id':'={ link.id }', 'data-user-id':'={ user.id }'} Responder
+  %button.btn.btn-default.pull-right.responder{'type':'button', 'data-encuesta-id':'={ encuesta.id }', 'data-link-id':'={ link.id.int }', 'data-user-id':'={ user.id }'} Responder

@@ -1,5 +1,5 @@
 (function() {
-  var agregar_opcion, crear_grupo, crear_pregunta, crear_usuario, enviar, get_url, guardar, guardar_encuesta, guardar_grupos, guardar_opciones, guardar_preguntas, guardar_y_volver, is_data_new, vista_previa,
+  var agregar_opcion, crear_grupo, crear_pregunta, crear_usuario, enviar, get_url, guardar, guardar_encuesta, guardar_grupos, guardar_opciones, guardar_preguntas, guardar_y_volver, is_data_new, responder_encuesta, vista_previa,
     _this = this;
 
   is_data_new = function(data) {
@@ -66,7 +66,7 @@
     $.each($('input.opcion'), function(i, opcion) {
       if (opcion !== "") return opciones.push($(opcion).val());
     });
-    $('preguntaText').val('');
+    $('#preguntaText').val('');
     while ($('.form-group.opcion').size() > 1) {
       $('.form-group.opcion:last').remove();
     }
@@ -78,7 +78,7 @@
   };
 
   agregar_opcion = function(jsEvent) {
-    return $('.form-group.opcion:first').clone().appendTo('#crearPregunta form');
+    return $('.form-group.opcion:first').clone().find("input:text").val("").end().appendTo('#crearPregunta form');
   };
 
   guardar_opciones = function(encuesta_id, $pregunta, id_pregunta, callback) {
@@ -167,6 +167,26 @@
     });
   };
 
+  responder_encuesta = function(jsEvent) {
+    var $respuestas, $target, encuesta, user;
+    $target = $(jsEvent.target);
+    user = "/api/v1/user/" + ($target.data('user-id')) + "/";
+    encuesta = "/api/v1/encuesta/" + ($target.data('encuesta-id')) + "/";
+    $respuestas = $('input[type="radio"]:checked');
+    return $.each($respuestas, function(i, respuesta) {
+      var data, opcion;
+      opcion = "/api/v1/opcion/" + ($(respuesta).val()) + "/";
+      data = {
+        opcion: opcion,
+        encuesta: encuesta,
+        usuario: user
+      };
+      return guardar("/api/v1/respuesta/", data, function(data) {
+        return window.location = "/gracias/" + ($target.data('link-id')) + "/";
+      });
+    });
+  };
+
   $(function() {
     $('select.usuarios').select2();
     $('button.crear-usuario').on('click', crear_usuario);
@@ -175,7 +195,8 @@
     $('button.agregar-opcion').on('click', agregar_opcion);
     $('button.enviar').on('click', enviar);
     $('button.vista-previa').on('click', vista_previa);
-    return $('button.guardar').on('click', guardar_y_volver);
+    $('button.guardar').on('click', guardar_y_volver);
+    return $('button.responder').on('click', responder_encuesta);
   });
 
 }).call(this);

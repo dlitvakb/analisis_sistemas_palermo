@@ -56,8 +56,7 @@ def exportar_encuesta(request, id_encuesta):
 
     try:
         export = json.dumps(encuesta.exportar(), sort_keys=True, indent=2, separators=(',', ': '))
-    except Exception, e:
-        import ipdb; ipdb.set_trace()
+    except:
         return HttpResponse("Encuesta no finalizada", status=403)
 
     response = HttpResponse(content_type='application/json')
@@ -90,10 +89,19 @@ def enviar_encuesta(request, id_encuesta):
 
     encuesta.generar_links()
 
-    redirect("/")
+    return redirect("/encuestas/")
 
 
-def gracias(request):
+def gracias(request, link_hash):
+    link = None
+    try:
+        link = Link.objects.get(id=uuid.UUID(int=int(link_hash)))
+    except:
+        return HttpResponseNotFound()
+
+    link.finalizada = True
+    link.save()
+
     return render(request, "encuesta_success")
 
 
@@ -105,7 +113,7 @@ def responder_encuesta(request):
 
     link = None
     try:
-        link = Link.objects.get(id=uuid.UUID(int=link_hash))
+        link = Link.objects.get(id=uuid.UUID(int=int(link_hash)))
     except:
         return HttpResponseNotFound()
 

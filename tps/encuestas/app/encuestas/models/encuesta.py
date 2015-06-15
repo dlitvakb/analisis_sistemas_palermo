@@ -57,9 +57,8 @@ class Encuesta(models.Model):
         return ""
 
     def __unicode__(self):
-        return "%s%d - %s (Creada por: %s)" % (
+        return "%s%d - %s" % (
             self._finalizada(),
             self.id,
             self.nombre,
-            self.creador.mail
         )

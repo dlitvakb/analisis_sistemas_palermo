@@ -63,7 +63,7 @@ crear_pregunta = (jsEvent) =>
         if opcion != ""
             opciones.push($(opcion).val())
 
-    $('preguntaText').val('')
+    $('#preguntaText').val('')
     while $('.form-group.opcion').size() > 1
         $('.form-group.opcion:last').remove()
 
@@ -87,7 +87,7 @@ crear_pregunta = (jsEvent) =>
         "</td></tr>").appendTo("##{grupo_id} table tbody")
 
 agregar_opcion = (jsEvent) =>
-    $('.form-group.opcion:first').clone().appendTo('#crearPregunta form')
+    $('.form-group.opcion:first').clone().find("input:text").val("").end().appendTo('#crearPregunta form')
 
 guardar_opciones = (encuesta_id, $pregunta, id_pregunta, callback) =>
     $opciones = $pregunta.find('td.opciones span.opcion')
@@ -153,6 +153,24 @@ enviar = () =>
     guardar_encuesta (encuesta_id) ->
         window.location = "/enviar/#{encuesta_id}/"
 
+responder_encuesta = (jsEvent) =>
+    $target = $(jsEvent.target)
+    user = "/api/v1/user/#{$target.data('user-id')}/"
+    encuesta = "/api/v1/encuesta/#{$target.data('encuesta-id')}/"
+
+    $respuestas = $('input[type="radio"]:checked')
+    $.each $respuestas, (i, respuesta) ->
+        opcion = "/api/v1/opcion/#{$(respuesta).val()}/"
+
+        data = {
+            opcion: opcion
+            encuesta: encuesta
+            usuario: user
+        }
+
+        guardar "/api/v1/respuesta/", data, (data) ->
+            window.location = "/gracias/#{$target.data('link-id')}/"
+
 $ ->
     $('select.usuarios').select2()
 
@@ -163,3 +181,5 @@ $ ->
     $('button.enviar').on('click', enviar)
     $('button.vista-previa').on('click', vista_previa)
     $('button.guardar').on('click', guardar_y_volver)
+
+    $('button.responder').on('click', responder_encuesta)

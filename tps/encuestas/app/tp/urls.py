@@ -24,6 +24,6 @@ urlpatterns = [
     url(r'^encuesta/([0-9]+)/delete/$', eliminar_encuesta),
     url(r'^encuestas/new/$', nueva_encuesta),
     url(r'^encuestas/$', listar_encuestas),
-    url(r'^gracias/$', gracias),
+    url(r'^gracias/([0-9]+)/$', gracias),
     url(r'^$', home),
 ]

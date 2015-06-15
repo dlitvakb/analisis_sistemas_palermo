@@ -76,7 +76,9 @@ TEMPLATES = [
             ],
             'loaders': [
                 'djaml.loaders.DjamlFilesystemLoader',
-                'djaml.loaders.DjamlAppDirectoriesLoader'
+                'djaml.loaders.DjamlAppDirectoriesLoader',
+                'django.template.loaders.filesystem.Loader',
+                'django.template.loaders.app_directories.Loader'
             ]
         },
     },
