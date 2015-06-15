@@ -11,9 +11,16 @@
   %tbody
     - for pregunta in grupo.preguntas.all
       %tr
-        %td{'width':'80%'}= pregunta.pregunta
+        %td.hidden.pregunta-id= pregunta.pk
+        %td.pregunta{'width':'80%'}= pregunta.pregunta
         %td= pregunta.opciones.count
         %td
           %a{'href':'#'} Editar
         %td
           %a{'href':'#'} Eliminar
+        %td.hidden.opciones
+          - for opcion in pregunta.opciones.all
+            %span.opcion
+              %span.opcion-text= opcion.opcion
+              %span.opcion-id= opcion.pk
+

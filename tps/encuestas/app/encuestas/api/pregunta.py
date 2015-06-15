@@ -9,7 +9,8 @@ from encuestas.api.opcion import OpcionResource
 
 
 class PreguntaResource(ModelResource):
-    opciones = fields.ToManyField(OpcionResource, 'opciones', related_name='pregunta', full=True)
+    grupo = fields.ToOneField('encuestas.api.grupo.GrupoResource', 'grupo')
+    opciones = fields.ToManyField(OpcionResource, 'opciones', related_name='pregunta', full=True, null=True)
 
     class Meta:
         always_return_data = True

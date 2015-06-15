@@ -10,37 +10,9 @@
   - else
     %h1 Nueva Encuesta
 
-  .modal{'id':'crearUsuario', 'tabindex':'-1', 'role':'dialog', 'aria-labelledby':"crearUsuarioLabel", 'aria-hidden':"true"}
-    .modal-dialog
-      .modal-content
-        .modal-header
-          %button.close{'type':"button", 'data-dismiss':"modal", 'aria-label':"Close"}
-            %span{'aria-hidden':"true"} &times;
-          %h4.modal-title{'id':'crearUsuarioLabel'} Crear Usuario
-        .modal-body
-          %form
-            .form-group
-              %label.control-label{'for':'userMail'} Mail
-              %input.form-control{'id':'userMail', 'type':'text', 'placeholder':'Mail del Usuario'}
-        .modal-footer
-          %button.btn.btn-default.pull-left{'data-dismiss':'modal'} Cancelar
-          %button.crear-usuario.btn.btn-primary.pull-right Guardar
-
-  .modal{'id':'crearGrupo', 'tabindex':'-1', 'role':'dialog', 'aria-labelledby':"crearGrupoLabel", 'aria-hidden':"true"}
-    .modal-dialog
-      .modal-content
-        .modal-header
-          %button.close{'type':"button", 'data-dismiss':"modal", 'aria-label':"Close"}
-            %span{'aria-hidden':"true"} &times;
-          %h4.modal-title{'id':'crearGrupoLabel'} Crear Grupo
-        .modal-body
-          %form
-            .form-group
-              %label.control-label{'for':'nombreGrupo'} Nombre
-              %input.form-control{'id':'nombreGrupo', 'type':'text', 'placeholder':'Nombre del Grupo'}
-        .modal-footer
-          %button.btn.btn-default.pull-left{'data-dismiss':'modal'} Cancelar
-          %button.crear-grupo.btn.btn-primary.pull-right Guardar
+  {% include "agregar_usuario.haml" %}
+  {% include "agregar_grupo.haml" %}
+  {% include "agregar_pregunta.haml" %}
 
   %hr
   .row
@@ -51,15 +23,15 @@
 
           .form-group
             %label.control-label{'for':'nombre'} Nombre
-            %input.form-control{'type':'text', 'placeholder':'Nombre de Encuesta', 'value':"={ encuesta.nombre }"}
+            %input.form-control{'id':'nombre', 'type':'text', 'placeholder':'Nombre de Encuesta', 'value':"={ encuesta.nombre }"}
 
           .form-group
-            %label.control-label{'for':'nombre'} Fecha Límite
-            %input.form-control{'type':'date', 'value':'{{ encuesta.fecha_expiracion.date|date:"Y-m-d" }}'}
+            %label.control-label{'for':'fecha_expiracion'} Fecha Límite
+            %input.form-control{'id':'fecha_expiracion', 'type':'date', 'value':'{{ encuesta.fecha_expiracion.date|date:"Y-m-d" }}'}
 
           .form-group
-            %label.control-label{'for':'nombre'} Descripcion
-            %textarea.form-control{'rows':'3', 'placeholder':'Descripcion'}= encuesta.descripcion
+            %label.control-label{'for':'descripcion'} Descripcion
+            %textarea.form-control{'id':'descripcion', 'rows':'3', 'placeholder':'Descripcion'}= encuesta.descripcion
         .col-md-4
           %h4 Usuarios
           %button.btn.btn-primary.pull-right.agregar-usuario{'type':"button", 'data-toggle':'modal', 'data-target':'#crearUsuario'} Agregar Usuario
@@ -100,7 +72,7 @@
   %hr
   .row
     %a.btn.btn-default.pull-left{'href':"/encuestas"} Cancelar
-    %a.btn.btn-primary.pull-right{'href':"#"} Enviar
-    %a.btn.btn-warning.pull-right{'href':"#"} Vista Previa
-    %a.btn.btn-info.pull-right{'href':"#"} Guardar
+    %button.btn.btn-primary.pull-right.enviar{'type':"button"} Enviar
+    %button.btn.btn-warning.pull-right.vista-previa{'type':"button"} Vista Previa
+    %button.btn.btn-info.pull-right.guardar{'type':"button"} Guardar
 

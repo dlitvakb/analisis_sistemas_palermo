@@ -1,0 +1,21 @@
+.modal{'id':'crearPregunta', 'tabindex':'-1', 'role':'dialog', 'aria-labelledby':"crearPreguntaLabel", 'aria-hidden':"true"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{'type':"button", 'data-dismiss':"modal", 'aria-label':"Close"}
+          %span{'aria-hidden':"true"} &times;
+        %h4.modal-title{'id':'crearPreguntaLabel'} Crear Pregunta
+      .modal-body
+        %form
+          .form-group
+            %label.control-label{'for':'preguntaText'} Pregunta
+            %input.form-control{'id':'preguntaText', 'type':'text', 'placeholder':'Pregunta?'}
+          %hr
+          %button.btn.btn-sm.btn-primary.pull-right.agregar-opcion{'type':'button'} Agregar Opción
+          %h5 Opciones
+          .form-group.opcion
+            %label.control-label{'for':'opcion'} Opción
+            %input.form-control.opcion{'type':'text', 'placeholder':'Opción'}
+      .modal-footer
+        %button.btn.btn-default.pull-left{'data-dismiss':'modal'} Cancelar
+        %button.crear-pregunta.btn.btn-primary.pull-right Guardar

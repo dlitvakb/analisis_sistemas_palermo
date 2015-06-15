@@ -1,6 +1,5 @@
 import uuid
 import json
-import datetime
 from django.http import HttpResponseNotFound, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
@@ -57,7 +56,8 @@ def exportar_encuesta(request, id_encuesta):
 
     try:
         export = json.dumps(encuesta.exportar(), sort_keys=True, indent=2, separators=(',', ': '))
-    except:
+    except Exception, e:
+        import ipdb; ipdb.set_trace()
         return HttpResponse("Encuesta no finalizada", status=403)
 
     response = HttpResponse(content_type='application/json')
@@ -65,6 +65,36 @@ def exportar_encuesta(request, id_encuesta):
     response.write(export)
 
     return response
+
+
+@login_required
+def vista_previa_encuesta(request, id_encuesta):
+    encuesta = None
+    try:
+        encuesta = Encuesta.objects.get(id=id_encuesta)
+    except:
+        return HttpResponseNotFound()
+
+    return render(request, "vista_previa", {
+        'encuesta': encuesta
+    })
+
+
+@login_required
+def enviar_encuesta(request, id_encuesta):
+    encuesta = None
+    try:
+        encuesta = Encuesta.objects.get(id=id_encuesta)
+    except:
+        return HttpResponseNotFound()
+
+    encuesta.generar_links()
+
+    redirect("/")
+
+
+def gracias(request):
+    return render(request, "encuesta_success")
 
 
 def responder_encuesta(request):
@@ -87,4 +117,9 @@ def responder_encuesta(request):
 
     request.session['link_hash'] = link_hash
     request.session['usuario_id'] = link.user.id
-    redirect("/static/responder_encuesta.html#/api/v1/encuesta/%d" % (link.encuesta.id,))
+
+    return render(request, "responder_encuesta", {
+        'encuesta': link.encuesta,
+        'user': link.user,
+        'link': link
+    })

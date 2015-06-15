@@ -1,3 +1,4 @@
+from tastypie import fields
 from tastypie.authentication import BasicAuthentication
 from tastypie.authorization import Authorization
 from tastypie.resources import ModelResource
@@ -6,6 +7,8 @@ from encuestas.models.opcion import Opcion
 
 
 class OpcionResource(ModelResource):
+    pregunta = fields.ToOneField('encuestas.api.pregunta.PreguntaResource', 'pregunta')
+
     class Meta:
         always_return_data = True
         queryset = Opcion.objects.all()

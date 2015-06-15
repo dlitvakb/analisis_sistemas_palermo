@@ -1,0 +1,16 @@
+.modal{'id':'crearUsuario', 'tabindex':'-1', 'role':'dialog', 'aria-labelledby':"crearUsuarioLabel", 'aria-hidden':"true"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{'type':"button", 'data-dismiss':"modal", 'aria-label':"Close"}
+          %span{'aria-hidden':"true"} &times;
+        %h4.modal-title{'id':'crearUsuarioLabel'} Crear Usuario
+      .modal-body
+        %form
+          .form-group
+            %label.control-label{'for':'userMail'} Mail
+            %input.form-control{'id':'userMail', 'type':'text', 'placeholder':'Mail del Usuario'}
+      .modal-footer
+        %button.btn.btn-default.pull-left{'data-dismiss':'modal'} Cancelar
+        %button.crear-usuario.btn.btn-primary.pull-right Guardar
+

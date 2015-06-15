@@ -6,11 +6,12 @@ from encuestas.helpers.pretty_serializer import PrettySerializer
 from encuestas.helpers.related_resource_uri_mixin import add_related_uri_to_resource
 from encuestas.models.encuesta import Encuesta
 from encuestas.api.grupo import GrupoResource
+from encuestas.api.user import UserResource
 
 
 class EncuestaResource(ModelResource):
-    grupos = fields.ToManyField(GrupoResource, 'grupos', related_name='encuesta')
-    creador = fields.ForeignKey('encuestas.api.user.UserResource', 'creador')
+    grupos = fields.ToManyField(GrupoResource, 'grupos', related_name='encuesta', null=True)
+    usuarios = fields.ToManyField(UserResource, 'usuarios', related_name='encuestas', null=True)
 
     class Meta:
         always_return_data = True

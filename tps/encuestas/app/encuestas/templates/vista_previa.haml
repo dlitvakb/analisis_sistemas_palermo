@@ -1,0 +1,13 @@
+- extends "layout.haml"
+- block title
+  Vista Previa - ={ encuesta.nombre }
+- block content
+  %h1 Vista Previa - ={ encuesta.nombre }
+
+  %hr
+  %br
+
+  {% include "render_encuesta" with encuesta=encuesta %}
+
+  %hr
+  %a.btn.btn-default.pull-right.volver{'href':'/encuesta/={ encuesta.id }/'} Volver

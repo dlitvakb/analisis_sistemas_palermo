@@ -1,0 +1,11 @@
+%form
+- for grupo in encuesta.grupos.all
+  .grupo{'id':'grupo_={ grupo.id }'}
+    %h4= grupo.nombre
+    - for pregunta in grupo.preguntas.all
+      .row.pregunta{'id':'pregunta_={ pregunta.id }'}
+        %p= pregunta.pregunta
+        - for opcion in pregunta.opciones.all
+          .radio
+            %label
+              %input{'type':'radio', 'name':'opcion_={ pregunta.id }', 'value':'={ opcion.id }'}= opcion.opcion

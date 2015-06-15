@@ -1,0 +1,15 @@
+.modal{'id':'crearGrupo', 'tabindex':'-1', 'role':'dialog', 'aria-labelledby':"crearGrupoLabel", 'aria-hidden':"true"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{'type':"button", 'data-dismiss':"modal", 'aria-label':"Close"}
+          %span{'aria-hidden':"true"} &times;
+        %h4.modal-title{'id':'crearGrupoLabel'} Crear Grupo
+      .modal-body
+        %form
+          .form-group
+            %label.control-label{'for':'nombreGrupo'} Nombre
+            %input.form-control{'id':'nombreGrupo', 'type':'text', 'placeholder':'Nombre del Grupo'}
+      .modal-footer
+        %button.btn.btn-default.pull-left{'data-dismiss':'modal'} Cancelar
+        %button.crear-grupo.btn.btn-primary.pull-right Guardar

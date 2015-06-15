@@ -1,9 +1,9 @@
-from django.db import models
 import datetime
+import pytz
+from django.db import models
 
 
 class Encuesta(models.Model):
-    creador = models.ForeignKey('User', related_name='encuestas')
     usuarios = models.ManyToManyField('User', related_name='encuestas_participadas')
     nombre = models.CharField(max_length=100, blank=False, null=False)
     descripcion = models.TextField(default="")
@@ -25,7 +25,7 @@ class Encuesta(models.Model):
         export = {}
         export["nombre"] = self.nombre
         export["descripcion"] = self.descripcion
-        export["finalizada"] = self._is_finalized()
+        export["finalizada"] = self.is_finalized
 
         export["grupos"] = []
         for grupo in self.grupos.all():
@@ -48,7 +48,7 @@ class Encuesta(models.Model):
 
     def _is_expired(self):
         if self.fecha_expiracion is not None:
-            return self.fecha_expiracion < datetime.now()
+            return self.fecha_expiracion < pytz.UTC.localize(datetime.datetime.now())
         return False
 
     def _finalizada(self):
